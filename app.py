@@ -37,11 +37,25 @@ class ProductListResource(Resource):
         db.session.commit()
         return product_schema.dump(new_product)
 
-
+class ProductResource(Resource):
+    def put(self, id):
+        product = Product.query.get_or_404(id)
+        if 'title' in request.json:
+            product.title = request.json['title']
+        if 'price' in request.json:
+            product.title = request.json['product']
+        db.session.commit()
+        return product_schema.dump(product)
+    def delete(self, id):
+         product = Product.query.get_or_404(id)
+         db.session.delete(product)
+         db.session.commit()
+         return "delete success"
 
 
 
 api.add_resource(ProductListResource, '/products')
+api.add_resource(ProductResource, '/products/<int:id>')
 
 
 
