@@ -43,7 +43,7 @@ class ProductResource(Resource):
         if 'title' in request.json:
             product.title = request.json['title']
         if 'price' in request.json:
-            product.title = request.json['product']
+            product.title = request.json['price']
         db.session.commit()
         return product_schema.dump(product)
     def delete(self, id):
